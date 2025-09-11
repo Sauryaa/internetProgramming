@@ -1,3 +1,3 @@
 # ip-class-pub
 
-CS330 public repository
+Saurya's CS330 Repo

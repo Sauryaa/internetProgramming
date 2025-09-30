@@ -1,11 +1,42 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
+
 .critical {
+    border-left: 4px solid #ff3860 !important;
 }
 
 .important {
+    border-left: 4px solid #ff8c00 !important;
 }
 
 .normal {
+    border-left: 4px solid #3273dc !important;
 }
 
 .low {
+    border-left: 4px solid #48c774 !important;
+}
+
+table#taskList {
+    width: 100%;
+}
+
+table#taskList th,
+table#taskList td {
+    padding: 0.5rem 0.75rem;
+    vertical-align: middle;
+}
+
+.field.is-Grouped .field-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.field.is-Grouped .field {
+    flex: 1;
+    min-width: 200px;
+}
+
+#removeAllTasks {
+    width: 100%;
 }

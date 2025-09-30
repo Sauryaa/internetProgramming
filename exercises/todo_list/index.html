@@ -1,61 +1,94 @@
 <!DOCTYPE html>
+<html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TODO list</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js" defer></script>
 </head>
 
-<body> 
+<body>
     <div class="container">
-        <h1>TODO List</h1>
-        <div class="container">
-            <form id="newTask">
-            <div>
-                <div>
-                    <label for="title">Task</label>
-                    <input id="title" required />
-                </div>
+        <header class="section">
+            <h1 class="title is-1">TODO List</h1>
+        </header>
+        <main class="section">
+            <section class="box">
+                <form id="newTask">
+                    <div class="field is-Grouped">
+                        <div class="field-body">
+                            <div class="field">
+                                <div id="taskTitleText">
+                                    <label class="label">Task</label>
+                                    <div class="control">
+                                        <input class="input" type="text" id="title" required />
+                                    </div>
+                                    <p class="help">Task title is required</p>
+                                </div>
+                            </div>
 
-                <div>
-                    <label for="assignedTo">Assigned to</label>
-                    <select id="assignedTo"></select>
-                </div>
+                            <div class="field">
+                                <div id="taskWorkerSelect">
+                                    <label class="label">Assigned to</label>
+                                    <div class="control">
+                                        <div class="select">
+                                            <select id="assignedTo"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div>
-                    <label for="priority">Priority</label>
-                    <select id="priority"></select>
-                </div>
+                            <div class="field">
+                                <div id="taskPrioritySelect">
+                                    <label class="label">Priority</label>
+                                    <div class="control">
+                                        <div class="select">
+                                            <select id="priority"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div>
-                    <label for="dueDate">Due date</label>
-                    <input id="dueDate" required />
-                </div>
-            </div>
-            <div>
-                <button type="button" id="addTaskBtn" onclick="addTask()">Add task</button>
-            </div>
-        </form>
+                            <div class="field">
+                                <div id="taskDueDate">
+                                    <label class="label">Due date</label>
+                                    <div class="control">
+                                        <input class="input" type="date" id="dueDate" required />
+                                    </div>
+                                    <p class="help">Task due date is required</p>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-primary" type="button" id="addTaskBtn" onclick="addTask()">
+                                        Add task
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <section class="box">
+                <table id="taskList" class="table is-fullwidth is-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                <button class="button is-danger is-small" id="removeAllTasks" onclick="selectAll()">Remove All</button>
+                            </th>
+                            <th>Task</th>
+                            <th>Assigned to</th>
+                            <th>Priority</th>
+                            <th>Due date</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
     </div>
-    </div>
-
-    <div class="container">
-        <table id="taskList">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Task</th>
-                    <th>Assigned to</th>
-                    <th>Priority</th>
-                    <th>Due date</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
-    <script type="text/javascript" src="js/script.js"></script>
 </body>
 
 </html>

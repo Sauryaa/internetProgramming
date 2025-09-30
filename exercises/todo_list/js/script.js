@@ -11,11 +11,36 @@ var priority = ["Low", "Normal", "Important", "Critical"];
  * Validate form, collect input values, and add call `addRow` to add a new row to the table
  */
 function addTask() {
-    // TODO: Implement this function
-    let vals = [];
-    let rowcolids = ["title", "assignedTo", "priority", "dueDate"];
-
-    addRow(vals, document.getElementById("taskList"));
+    let title = document.getElementById("title").value.trim();
+    let assignedTo = document.getElementById("assignedTo").value;
+    let priority = document.getElementById("priority").value;
+    let dueDate = document.getElementById("dueDate").value;
+    
+    let titleValid = title !== "";
+    let dueDateValid = dueDate !== "";
+    
+    let titleHelp = document.querySelector("#taskTitleText > p");
+    let dueDateHelp = document.querySelector("#taskDueDate > p");
+    
+    if (titleValid) {
+        titleHelp.className = "help";
+    } else {
+        titleHelp.className = "help is-danger";
+    }
+    
+    if (dueDateValid) {
+        dueDateHelp.className = "help";
+    } else {
+        dueDateHelp.className = "help is-danger";
+    }
+    
+    if (titleValid && dueDateValid) {
+        let vals = [title, assignedTo, priority, dueDate];
+        addRow(vals, document.querySelector("#taskList tbody"));
+        
+        document.getElementById("title").value = "";
+        document.getElementById("dueDate").value = "";
+    }
 }
 
 /**
@@ -27,8 +52,32 @@ function addTask() {
 function addRow(valueList, parent) {
     // TODO: Implement this function
     let row = document.createElement("tr");
-    let td = document.createElement("td");
+    
+    let priority = valueList[2].toLowerCase();
+    row.className = priority;
+    
+    let checkboxCell = document.createElement("td");
     let cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.onclick = removeRow;
+    checkboxCell.appendChild(cb);
+    row.appendChild(checkboxCell);
+    
+    let titleCell = document.createElement("td");
+    titleCell.textContent = valueList[0];
+    row.appendChild(titleCell);
+    
+    let assignedCell = document.createElement("td");
+    assignedCell.textContent = valueList[1];
+    row.appendChild(assignedCell);
+    
+    let priorityCell = document.createElement("td");
+    priorityCell.textContent = valueList[2];
+    row.appendChild(priorityCell);
+    
+    let dueDateCell = document.createElement("td");
+    dueDateCell.textContent = valueList[3];
+    row.appendChild(dueDateCell);
 
     parent.appendChild(row);
 }
@@ -36,10 +85,15 @@ function addRow(valueList, parent) {
 /**
  * Remove a table row corresponding to the selected checkbox
  * 
- * https://stackoverflow.com/questions/26512386/remove-current-row-tr-when-checkbox-is-checked
  */
 function removeRow() {
     // TODO: Implement this function
+    setTimeout(() => {
+        let row = this.closest("tr");
+        if (row) {
+            row.remove();
+        }
+    }, 3000);
 }
 
 /**
@@ -47,7 +101,12 @@ function removeRow() {
  * 
  */
 function selectAll() {
-
+    let checkboxes = document.querySelectorAll("#taskList tbody input[type='checkbox']");
+    
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
+        removeRow.call(checkbox);
+    });
 }
 
 /**
@@ -58,7 +117,13 @@ function selectAll() {
  */
 function populateSelect(selectId, sList) {
     // TODO: Implement this function
-    let sel = document.getElementById(selectId, sList);
+    let sel = document.getElementById(selectId);
+    for (let i = 0; i < sList.length; i++) {
+        let option = document.createElement("option");
+        option.value = sList[i];
+        option.text = sList[i];
+        sel.appendChild(option);
+    }
 }
 
 window.onload = function () {

@@ -3,18 +3,67 @@
 
 <head>
     <title>Notebook</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script type="text/javascript" defer src=js/model.js></script>
     <script type="text/javascript" defer src=js/view.js></script>
     <script type="text/javascript" defer src=js/controller.js></script>
-    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    <div class="section">
-    </div>
+    <div class="container">
+        <div class="section">
+            <h1 class="title">Notebook</h1>
+            
+            <form class="box">
+                <div id="fieldTitle" class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input id="title" class="input" type="text" placeholder="Enter note title">
+                    </div>
+                    <p class="help is-danger is-hidden">Title is required</p>
+                </div>
 
-    <div class="section">
+                <div id="fieldColor" class="field">
+                    <label class="label">Color</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="color">
+                                <option value="is-primary">Primary (Blue)</option>
+                                <option value="is-link">Link (Purple)
+                                    
+                                </option>
+                                <option value="is-info">Text (Cyan)</option>
+                                <option value="is-success">Success (Green)</option>
+                                <option value="is-warning">Note (Yellow)
+                                </option>
+                                <option value="is-danger">Danger (Red)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="help">Choose a color</p>
+                </div>
+
+                <div id="fieldText" class="field">
+                    <label class="label">Text</label>
+                    <div class="control">
+                        <textarea id="text" class="textarea" placeholder="Enter your note text"></textarea>
+                    </div>
+                    <p class="help is-danger is-hidden">Text is required.</p>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <button id="addNote" class="button is-primary">Add Note</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="section">
+            <div id="notes-container">
+                <!-- New notes will be added here -->
+            </div>
+        </div>
     </div>
 </body>
 

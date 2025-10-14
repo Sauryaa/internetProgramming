@@ -1,0 +1,33 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
+
+.card.easy {
+    border-left: 4px solid #48c78e;
+}
+
+.card.medium {
+    border-left: 4px solid #ffe08a; 
+}
+
+.card.hard {
+    border-left: 4px solid #f14668; 
+}
+
+.correct_answer {
+    background-color: #48c78e !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+.card-content ol {
+    margin-left: 1rem;
+}
+
+.card-content li {
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+    border-radius: 3px;
+}

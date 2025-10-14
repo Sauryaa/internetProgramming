@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia</title>
+    <link rel="stylesheet" href="site.css" />
+    <script src="main.js" defer></script>
+</head>
+
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Trivia night!</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="field">
+                        <label class="label" for="categorySelect">Category</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select id="categorySelect">
+                                    <option value="">Select a category</option>
+                                    <option value="Science: Computers">Science: Computers</option>
+                                    <option value="Mythology">Mythology</option>
+                                    <option value="Geography">Geography</option>
+                                    <option value="History">History</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-half">
+                    <div class="field" id="numberInputField">
+                        <label class="label" for="numberInput">Number of questions</label>
+                        <div class="control">
+                            <input class="input" type="number" id="numberInput" min="1" max="10" placeholder="1-10">
+                        </div>
+                        <p class="help" id="numberHelp"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary" id="getQuestionsBtn">Get Questions</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div id="questionsDiv">
+                <!-- Questions will be added here -->
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+

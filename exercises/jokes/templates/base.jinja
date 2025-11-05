@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask for Fun</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Pick the language, the category and the number of jokes to hear</h1>
+
+            <div class="box">
+                <form method="post" action="/">
+                    <div class="field is-horizontal">
+                        <div class="field-body">
+
+                            <div class="field" id="fieldLanguage">
+                                <label class="label">Language</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select name="language" id="selLang">
+                                            {% for code, name in languages.items() %}
+                                            <option value="{{ code }}" {% if code == selected_language %}selected{% endif %}>
+                                                {{ name.capitalize() }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field" id="fieldCategory">
+                                <label class="label">Category</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select name="category" id="selCat">
+                                            {% for cat in categories %}
+                                            <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>
+                                                {{ cat.capitalize() }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field" id="fieldNumber">
+                                <label class="label">Number</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select name="number" id="selNum">
+                                            {% for n in numbers %}
+                                            <option value="{{ n }}" {% if n == selected_number %}selected{% endif %}>
+                                                {{ n }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">&nbsp;</label>
+                                <div class="control">
+                                    <button class="button is-primary" type="submit" id="btnAmuse">Amuse me</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+</body>
+</html>

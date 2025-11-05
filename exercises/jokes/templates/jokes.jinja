@@ -1,0 +1,13 @@
+{% extends "base.jinja" %}
+
+{% block content %}
+
+<div id="jokes">
+	{% for joke in jokes %}
+	<article class="message is-info">
+		<div class="message-body">{{ joke }}</div>
+	</article>
+	{% endfor %}
+</div>
+
+{% endblock %}

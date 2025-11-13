@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Global Joke Machine</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+    <link rel="stylesheet" href="./site.css" />
+</head>
+
+<body>
+    <header class="hero is-primary">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <p class="title">Joke Machine</p>
+                <p class="subtitle">Pick a language</p>
+            </div>
+        </div>
+    </header>
+    <main class="section">
+        <div class="container">
+            <form id="jokeForm" class="box">
+                <div class="columns is-multiline">
+                    <div class="column is-3">
+                        <label class="label" for="selLang">Language</label>
+                        <div class="select is-fullwidth">
+                            <select id="selLang" name="language">
+                                <option value="any" selected>Any language</option>
+                                <option value="cs">Czech</option>
+                                <option value="de">German</option>
+                                <option value="en">English</option>
+                                <option value="es">Spanish</option>
+                                <option value="eu">Basque</option>
+                                <option value="fr">French</option>
+                                <option value="gl">Galician</option>
+                                <option value="hu">Hungarian</option>
+                                <option value="it">Italian</option>
+                                <option value="lt">Lithuanian</option>
+                                <option value="pl">Polish</option>
+                                <option value="sv">Swedish</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <label class="label" for="selCat">Category</label>
+                        <div class="select is-fullwidth">
+                            <select id="selCat" name="category">
+                                <option value="any" selected>Any category</option>
+                                <option value="neutral">Neutral</option>
+                                <option value="chuck">Chuck Norris</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <label class="label" for="selNum">Number of jokes</label>
+                        <div class="select is-fullwidth">
+                            <select id="selNum" name="number">
+                                <option value="all" selected>All jokes</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <label class="label" for="jokeId">Joke ID</label>
+                        <input id="jokeId" class="input" type="number" min="0" step="1"
+                            placeholder="e.g. 330 (optional)" />
+                        <p class="help">If provided, language, category, and number are ignored.</p>
+                    </div>
+                </div>
+                <div class="field is-grouped is-justify-content-flex-end">
+                    <div class="control">
+                        <button id="btnAmuse" class="button is-link" type="submit">Amuse me</button>
+                    </div>
+                </div>
+            </form>
+            <section class="box">
+                <div class="level">
+                    <div class="level-item">
+                        <h2 class="title is-4">Punchlines</h2>
+                    </div>
+                </div>
+                <div id="jokes" class="jokes-grid" aria-live="polite"></div>
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>Made with Flask, PyJokes, and a bit of HTML/JS magic.</p>
+        </div>
+    </footer>
+    <script src="./main.js" defer></script>
+</body>
+
+</html>

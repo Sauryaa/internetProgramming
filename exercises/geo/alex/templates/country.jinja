@@ -1,0 +1,74 @@
+{% extends "base.jinja" %}
+
+{% block searchform %}
+
+<form class="field has-addons" action="{{ url_for('main.country') }}" method="get">
+    <div class="control">
+        <div class="select">
+            <select id="selCountry" name="name" required>
+                <option value="" disabled {% if not selected_country %}selected{% endif %}>Search for a country</option>
+                {% for country in country_options %}
+                <option value="{{ country }}" {% if country == selected_country %}selected{% endif %}>{{ country }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="control">
+        <button class="button is-link" id="btnInfo" type="submit">Show data</button>
+    </div>
+</form>
+
+{% endblock searchform %}
+
+{% block content %}
+
+{% if heading %}
+<h2 class="title is-4">{{ heading }}</h2>
+{% endif %}
+
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+
+{% if country_info %}
+<div class="content">
+    <p><strong>Region:</strong> {{ country_info.continental_region or "—" }} | <strong>Subregion:</strong> {{ country_info.subregion or "—" }}</p>
+</div>
+{% endif %}
+
+{% if cities is none %}
+<p>Please select a country to see the city list.</p>
+{% elif cities %}
+<div class="table-container">
+    <table class="table is-striped is-hoverable is-fullwidth" id="information">
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Administrative region</th>
+                <th>Population</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for city in cities %}
+            <tr class="{% if capital_id is not none and city.id == capital_id %}is-selected{% endif %}">
+                <td>{{ city.name }}</td>
+                <td>{{ city.admin_region or "—" }}</td>
+                <td>
+                    {% if city.population is not none %}
+                    {{ "{:,}".format(city.population) }}
+                    {% else %}
+                    —
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% elif message %}
+{# message already shown above #}
+{% else %}
+<p>No cities found in this country.</p>
+{% endif %}
+
+{% endblock content %}

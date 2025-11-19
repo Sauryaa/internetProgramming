@@ -1,0 +1,21 @@
+{% extends "world.jinja" %}
+
+{% block searchform %}
+
+<form class="field has-addons" action="{{ url_for('main.subregion') }}" method="get">
+    <div class="control">
+        <div class="select">
+            <select id="selSubregion" name="name" required>
+                <option value="" disabled {% if not selected_subregion %}selected{% endif %}>Search for a subregion</option>
+                {% for subregion in subregion_options %}
+                <option value="{{ subregion }}" {% if subregion == selected_subregion %}selected{% endif %}>{{ subregion }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="control">
+        <button class="button is-link" id="btnInfo" type="submit">Show data</button>
+    </div>
+</form>
+
+{% endblock searchform %}

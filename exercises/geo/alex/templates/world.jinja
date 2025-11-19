@@ -1,0 +1,102 @@
+{% extends "base.jinja" %}
+
+{% block searchform %}
+
+<form class="field has-addons" action="{{ url_for('main.country') }}" method="get">
+    <div class="control">
+        <div class="select">
+            <select id="selCountry" name="name" required>
+                <option value="" disabled selected>Search for a country</option>
+                {% for country in country_options %}
+                <option value="{{ country }}">{{ country }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="control">
+        <button class="button is-link" id="btnInfo" type="submit">Show data</button>
+    </div>
+</form>
+
+{% endblock searchform %}
+
+{% block content %}
+
+{% if heading %}
+<h2 class="title is-4">{{ heading }}</h2>
+{% endif %}
+
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+
+{% if countries %}
+<div class="table-container">
+    <table class="table is-striped is-hoverable is-fullwidth" id="information">
+        <thead>
+            <tr>
+                <th>Official name</th>
+                <th>Capital</th>
+                <th>Region</th>
+                <th>Subregion</th>
+                <th>Area (km²)</th>
+                <th>Population 2023</th>
+                <th>Density (pop/km²)</th>
+                <th>Government</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for country in countries %}
+            <tr>
+                <td>
+                    <a href="{{ url_for('main.country', name=country.name) }}">
+                        {{ country.official_name or country.name }}
+                    </a>
+                </td>
+                <td>{{ country.capital_name or "—" }}</td>
+                <td>
+                    {% if country.continental_region %}
+                    <a href="{{ url_for('main.region', name=country.continental_region) }}">{{ country.continental_region }}</a>
+                    {% else %}
+                    —
+                    {% endif %}
+                </td>
+                <td>
+                    {% if country.subregion %}
+                    <a href="{{ url_for('main.subregion', name=country.subregion) }}">{{ country.subregion }}</a>
+                    {% else %}
+                    —
+                    {% endif %}
+                </td>
+                <td>
+                    {% if country.area is not none %}
+                    {{ "{:,}".format(country.area) }}
+                    {% else %}
+                    —
+                    {% endif %}
+                </td>
+                <td>
+                    {% if country.population_2023 is not none %}
+                    {{ "{:,}".format(country.population_2023) }}
+                    {% else %}
+                    —
+                    {% endif %}
+                </td>
+                <td>
+                    {% if country.population_2023 is not none and country.area is not none and country.area != 0 %}
+                    {{ "{:,.2f}".format(country.population_2023 / country.area) }}
+                    {% else %}
+                    —
+                    {% endif %}
+                </td>
+                <td>{{ country.government_system or "—" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% elif not message %}
+<p>No information available.</p>
+{% endif %}
+
+{% endblock content %}

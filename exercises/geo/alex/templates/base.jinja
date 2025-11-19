@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facts of the World</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+</head>
+
+<body>
+    <header class="container">
+        <h1 class="title">Facts of the World</h1>
+        <h2 class="subtitle">Query database on region, subregion, or country level</h2>
+    </header>
+    <nav class="navbar container" role="navigation" aria-label="main navigation">
+        <div class="navbar-menu">
+            <ul class="navbar-start">
+                <li class="navbar-item"><a href="{{ url_for('main.world') }}">Home</a></li>
+                <li class="navbar-item"><a href="{{ url_for('main.region')}}">Region</a></li>
+                <li class="navbar-item"><a href="{{ url_for('main.subregion')}}">Subregion</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" id="messages">
+        {% with flashes = get_flashed_messages(with_categories=True) %}
+        {% if flashes %}
+        {% for category, message in flashes %}
+        <article class="message is-{{ 'warning' if category == 'warning' else 'info' }}">
+            <div class="message-body">
+                {{ message }}
+            </div>
+        </article>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <main class="container">
+        <section class="section">
+            {% block searchform %}{% endblock searchform %}
+        </section>
+        {% block content %} {% endblock content %}
+    </main>
+</body>
+
+</html>

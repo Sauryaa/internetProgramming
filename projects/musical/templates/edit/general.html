@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}General information{% endblock %}
+{% block content %}
+<div class="box card">
+  <div class="level">
+    <div class="level-left">
+      <div>
+        <p class="is-uppercase has-text-weight-semibold has-text-warning">Production</p>
+        <h1 class="title is-3 has-text-white">General information</h1>
+      </div>
+    </div>
+    <div class="level-right">
+      <a class="button is-link is-light" href="{{ url_for('view.program') }}">Preview program</a>
+    </div>
+  </div>
+
+  <form method="post">
+    <div class="columns is-multiline">
+      <div class="column is-6">
+        <div class="field">
+          <label class="label has-text-grey-light">Show title</label>
+          <div class="control">
+            <input class="input" name="title" value="{{ production.title or '' }}" required>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="field">
+          <label class="label has-text-grey-light">Subtitle / presenting organization</label>
+          <div class="control">
+            <input class="input" name="subtitle" value="{{ production.subtitle or '' }}">
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="field">
+          <label class="label has-text-grey-light">Cover image URL</label>
+          <div class="control">
+            <input class="input" name="cover_image_url" value="{{ production.cover_image_url or '' }}" placeholder="https://example.com/poster.jpg">
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="field">
+          <label class="label has-text-grey-light">Venue</label>
+          <div class="control">
+            <input class="input" name="location" value="{{ production.location or '' }}" placeholder="Auditorium, High School">
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="field">
+          <label class="label has-text-grey-light">Ticket price</label>
+          <div class="control">
+            <input class="input" name="price" value="{{ production.price or '' }}" placeholder="$10 students / $15 adults">
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="field">
+          <label class="label has-text-grey-light">Copyright notice</label>
+          <div class="control">
+            <input class="input" name="copyright" value="{{ production.copyright or '' }}" placeholder="Licensed by...">
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="field">
+          <label class="label has-text-grey-light">Intermission length</label>
+          <div class="control">
+            <input class="input" name="intermission_length" value="{{ production.intermission_length or '' }}" placeholder="15 minutes">
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="field">
+          <label class="label has-text-grey-light">Performance dates (one per line)</label>
+          <div class="control">
+            <textarea class="textarea" name="dates" rows="4" placeholder="Friday, March 4 - 7:00 PM&#10;Saturday, March 5 - 2:00 PM">{{ dates_text }}</textarea>
+          </div>
+        </div>
+      </div>
+      <div class="column is-12">
+        <div class="field">
+          <label class="label has-text-grey-light">Program notes</label>
+          <div class="control">
+            <textarea class="textarea" name="notes" rows="3" placeholder="House opens 30 minutes before curtain.">{{ production.notes or '' }}</textarea>
+          </div>
+        </div>
+      </div>
+      <div class="column is-12">
+        <div class="field">
+          <label class="label has-text-grey-light">Thanks and recognitions</label>
+          <div class="control">
+            <textarea class="textarea" name="thanks_text" rows="3" placeholder="Booster club, custodial staff, families...">{{ production.thanks_text or '' }}</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button class="button is-warning" type="submit">Save general info</button>
+      <a class="button is-light" href="{{ url_for('edit.dashboard') }}">Back to dashboard</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Songs & acts{% endblock %}
+{% block content %}
+<div class="box card">
+  <div class="level">
+    <div class="level-left">
+      <div>
+        <p class="is-uppercase has-text-weight-semibold has-text-warning">Music</p>
+        <h1 class="title is-3 has-text-white">Songs & acts</h1>
+      </div>
+    </div>
+    <div class="level-right">
+      <a class="button is-light" href="{{ url_for('edit.dashboard') }}">Dashboard</a>
+    </div>
+  </div>
+
+  <form class="box has-background-dark" method="post">
+    <input type="hidden" name="action" value="add">
+    <div class="columns is-multiline">
+      <div class="column is-4">
+        <div class="field">
+          <label class="label has-text-grey-light">Title</label>
+          <div class="control">
+            <input class="input" name="title" placeholder="Opening number" required>
+          </div>
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label class="label has-text-grey-light">Act</label>
+          <div class="control">
+            <input class="input" type="number" min="1" name="act_number" value="1">
+          </div>
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label class="label has-text-grey-light">Order</label>
+          <div class="control">
+            <input class="input" type="number" min="0" name="position" value="{{ songs|length }}">
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="field">
+          <label class="label has-text-grey-light">Notes (reprise, transition...)</label>
+          <div class="control">
+            <input class="input" name="notes">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <button class="button is-warning" type="submit">Add song</button>
+    </div>
+  </form>
+
+  <div class="columns is-multiline">
+    {% for song in songs %}
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <form method="post">
+              <input type="hidden" name="action" value="update">
+              <input type="hidden" name="song_id" value="{{ song.id }}">
+              <div class="field is-grouped is-align-items-center">
+                <p class="control is-expanded">
+                  <input class="input is-medium" name="title" value="{{ song.title }}">
+                </p>
+                <p class="control">
+                  <span class="tag is-info is-light is-medium">Act {{ song.act_number }}</span>
+                </p>
+              </div>
+              <div class="columns">
+                <div class="column">
+                  <div class="field">
+                    <label class="label has-text-grey-light">Act</label>
+                    <div class="control">
+                      <input class="input" type="number" min="1" name="act_number" value="{{ song.act_number }}">
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="field">
+                    <label class="label has-text-grey-light">Order</label>
+                    <div class="control">
+                      <input class="input" type="number" min="0" name="position" value="{{ song.position }}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label has-text-grey-light">Notes</label>
+                <div class="control">
+                  <input class="input" name="notes" value="{{ song.notes or '' }}">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label has-text-grey-light">Performed by</label>
+                <div class="control">
+                  <div class="select is-multiple is-fullwidth">
+                    <select name="performers" multiple size="6">
+                      {% for role in roles %}
+                        <option value="{{ role.id }}" {% for perf in song.performers %}{% if perf.role_id == role.id %}selected{% endif %}{% endfor %}>
+                          {{ role.name }}{% if role.is_group %} (group){% endif %}
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="buttons">
+                <button class="button is-warning" type="submit">Save</button>
+                <button class="button is-danger is-light" name="action" value="delete" type="submit">Delete</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="column is-12 has-text-grey-light">No songs added yet.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

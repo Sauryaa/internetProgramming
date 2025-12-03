@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}Program — {{ production.title }}{% endblock %}
+{% block body_class %}view-mode{% endblock %}
+{% block content %}
+<div class="playbill">
+  <div class="playbill-cover {% if production.cover_image_url %}with-image{% endif %}" {% if production.cover_image_url %}style="background-image: url('{{ production.cover_image_url }}');"{% endif %}>
+    <div class="content">
+      {% if production.subtitle %}<p class="is-uppercase has-text-weight-semibold has-text-warning">{{ production.subtitle }}</p>{% endif %}
+      <h1 class="title is-1 has-text-white">{{ production.title }}</h1>
+      {% if production.location %}<p class="has-text-grey-light">{{ production.location }}</p>{% endif %}
+      {% if production.performance_dates %}
+        <ul class="has-text-grey-light">
+          {% for date in production.performance_dates %}
+            <li>{{ date.label }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if production.price %}<p class="has-text-grey-light">{{ production.price }}</p>{% endif %}
+    </div>
+  </div>
+
+  <div class="playbill-body">
+    {% if production.notes %}
+      <div class="playbill-section">
+        <h2 class="title is-4 has-text-white">Director's notes</h2>
+        <p class="has-text-grey-light">{{ production.notes }}</p>
+      </div>
+    {% endif %}
+
+    <div class="playbill-section">
+      <h2 class="title is-4 has-text-white">Cast</h2>
+      <div class="columns is-multiline">
+        {% for role in cast_roles %}
+          <div class="column is-6 label-line">
+            <p class="is-flex is-justify-content-space-between is-align-items-flex-start">
+              <strong>{{ role.name }}</strong>
+              <span class="has-text-grey-light">
+                {% if role.cast_assignments %}
+                  {% for assign in role.cast_assignments %}
+                    {{ assign.student.name }}{% if not loop.last %}, {% endif %}
+                  {% endfor %}
+                {% else %}
+                  <span class="muted">TBA</span>
+                {% endif %}
+              </span>
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="playbill-section">
+      <h2 class="title is-4 has-text-white">Crew & Tech</h2>
+      <div class="columns is-multiline">
+        {% for role in crew_roles %}
+          <div class="column is-6 label-line">
+            <p class="is-flex is-justify-content-space-between is-align-items-flex-start">
+              <strong>{{ role.name }}</strong>
+              <span class="has-text-grey-light">
+                {% if role.assignments %}
+                  {% for assign in role.assignments %}
+                    {{ assign.student.name }}{% if not loop.last %}, {% endif %}
+                  {% endfor %}
+                {% else %}
+                  <span class="muted">TBA</span>
+                {% endif %}
+              </span>
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="playbill-section">
+      <h2 class="title is-4 has-text-white">Creative team</h2>
+      <div class="columns is-multiline">
+        {% for role in creative_roles %}
+          <div class="column is-6 label-line">
+            <p class="is-flex is-justify-content-space-between is-align-items-flex-start">
+              <strong>{{ role.title }}</strong>
+              <span class="has-text-grey-light">
+                {% if role.assignments %}
+                  {% for assign in role.assignments %}
+                    {{ assign.adult.name }}{% if not loop.last %}, {% endif %}
+                  {% endfor %}
+                {% else %}
+                  <span class="muted">TBA</span>
+                {% endif %}
+              </span>
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="playbill-section">
+      <h2 class="title is-4 has-text-white">Songs</h2>
+      {% for act_number, songs in acts %}
+        <div class="box has-background-dark">
+          <p class="has-text-weight-bold is-uppercase has-text-info">Act {{ act_number }}</p>
+          <ol class="ml-4">
+            {% for song in songs %}
+              <li class="mb-2">
+                <div class="is-flex is-justify-content-space-between is-align-items-baseline">
+                  <div>
+                    <div class="has-text-white has-text-weight-semibold">{{ song.title }}</div>
+                    {% if song.notes %}<div class="has-text-grey-light is-size-7">{{ song.notes }}</div>{% endif %}
+                  </div>
+                  {% if song.performers %}
+                    <div class="has-text-grey-light is-size-7">
+                      {% for perf in song.performers %}
+                        {{ perf.role.name }}{% if not loop.last %}, {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              </li>
+            {% endfor %}
+          </ol>
+          {% if production.intermission_length and not loop.last %}
+            <div class="intermission-box mt-3">Intermission — {{ production.intermission_length }}</div>
+          {% endif %}
+        </div>
+      {% else %}
+        <p class="muted">No songs listed yet.</p>
+      {% endfor %}
+    </div>
+
+    <div class="playbill-section">
+      <h2 class="title is-4 has-text-white">Thanks & recognitions</h2>
+      <p class="has-text-grey-light">{{ production.thanks_text or "Thank you to everyone who made this production possible." }}</p>
+      {% if production.copyright %}
+        <p class="has-text-grey-light is-size-7">{{ production.copyright }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

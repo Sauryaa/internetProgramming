@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Director dashboard{% endblock %}
+{% block content %}
+<div class="box" style="background: var(--playbill-panel);">
+  <div class="columns is-vcentered">
+    <div class="column">
+      <p class="is-uppercase has-text-weight-semibold has-text-warning">Director console</p>
+      <h1 class="title is-2 has-text-white">{{ production.title }}</h1>
+      <p class="subtitle is-6 has-text-grey-light">Build your program, manage cast and crew, and share the public view with the community.</p>
+      <div class="buttons">
+        <a class="button is-warning is-medium" href="{{ url_for('view.program') }}">Preview program</a>
+        <a class="button is-light is-outlined" href="{{ url_for('edit.general') }}">Edit general info</a>
+      </div>
+    </div>
+    <div class="column is-narrow">
+      <div class="columns is-multiline is-mobile has-text-centered">
+        <div class="column is-half">
+          <div class="box has-background-dark">
+            <p class="title is-3 has-text-white">{{ student_count }}</p>
+            <p class="subtitle is-7 has-text-grey-light">Students</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="box has-background-dark">
+            <p class="title is-3 has-text-white">{{ cast_roles|length }}</p>
+            <p class="subtitle is-7 has-text-grey-light">Acting roles</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="box has-background-dark">
+            <p class="title is-3 has-text-white">{{ crew_roles|length }}</p>
+            <p class="subtitle is-7 has-text-grey-light">Crew duties</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="box has-background-dark">
+            <p class="title is-3 has-text-white">{{ songs|length }}</p>
+            <p class="subtitle is-7 has-text-grey-light">Songs</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box" style="background: var(--playbill-panel);">
+  <div class="level">
+    <div class="level-left">
+      <h2 class="title is-4 has-text-white">Quick actions</h2>
+    </div>
+    <div class="level-right">
+      <form method="post" action="{{ url_for('edit.import_students') }}">
+        <button class="button is-info is-light" type="submit">Import roster ({{ roster_path if roster_path else 'cast.csv' }})</button>
+      </form>
+    </div>
+  </div>
+  <div class="columns is-multiline">
+    <div class="column is-3">
+      <a class="box has-background-dark" href="{{ url_for('edit.cast') }}">
+        <p class="title is-5 has-text-white">Cast</p>
+        <p class="has-text-grey-light is-size-7">Assign students to characters and ensemble groups.</p>
+      </a>
+    </div>
+    <div class="column is-3">
+      <a class="box has-background-dark" href="{{ url_for('edit.crew') }}">
+        <p class="title is-5 has-text-white">Crew</p>
+        <p class="has-text-grey-light is-size-7">Track backstage and tech responsibilities.</p>
+      </a>
+    </div>
+    <div class="column is-3">
+      <a class="box has-background-dark" href="{{ url_for('edit.creative') }}">
+        <p class="title is-5 has-text-white">Creative team</p>
+        <p class="has-text-grey-light is-size-7">List directors, designers, and choreographers.</p>
+      </a>
+    </div>
+    <div class="column is-3">
+      <a class="box has-background-dark" href="{{ url_for('edit.songs') }}">
+        <p class="title is-5 has-text-white">Songs</p>
+        <p class="has-text-grey-light is-size-7">Organize acts, reprises, and performers.</p>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+:root {
+  --playbill-bg: #0f0d1a;
+  --playbill-panel: #16132b;
+  --playbill-gold: #f2c94c;
+}
+
+body {
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.05), transparent 35%), var(--playbill-bg);
+  color: #f7f7ff;
+}
+
+.section {
+  padding-top: 2.5rem;
+}
+
+.notification {
+  border-radius: 10px;
+}
+
+.playbill {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid #221c3a;
+}
+
+.playbill-cover {
+  background: linear-gradient(120deg, rgba(24, 19, 50, 0.9), rgba(10, 10, 20, 0.7));
+  color: white;
+  padding: 2.5rem;
+  min-height: 240px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.playbill-cover.with-image {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.playbill-cover.with-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(15, 13, 26, 0.8), rgba(15, 13, 26, 0.55));
+}
+
+.playbill-cover .content {
+  position: relative;
+  z-index: 1;
+}
+
+.playbill-body {
+  background: #0f0d1a;
+  padding: 2rem;
+}
+
+.playbill-section + .playbill-section {
+  margin-top: 1.4rem;
+}
+
+.label-line {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.55rem 0;
+}
+
+.label-line strong {
+  color: #f6f4ff;
+}
+
+.muted {
+  color: #c5c8d6;
+}
+
+.intermission-box {
+  background: rgba(242, 201, 76, 0.12);
+  border: 1px dashed rgba(242, 201, 76, 0.5);
+  color: var(--playbill-gold);
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.card {
+  background: var(--playbill-panel);
+  border: 1px solid #221c3a;
+  color: #f7f7ff;
+}
+
+.card .title, .card .subtitle {
+  color: #f7f7ff;
+}
+
+.navbar.is-dark {
+  background: #0f0d1a;
+  border-bottom: 1px solid #221c3a;
+}

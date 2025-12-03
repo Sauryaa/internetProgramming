@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Cast & roles{% endblock %}
+{% block content %}
+<div class="box card">
+  <div class="level">
+    <div class="level-left">
+      <div>
+        <p class="is-uppercase has-text-weight-semibold has-text-warning">Acting</p>
+        <h1 class="title is-3 has-text-white">Cast & roles</h1>
+      </div>
+    </div>
+    <div class="level-right">
+      <a class="button is-light" href="{{ url_for('edit.dashboard') }}">Dashboard</a>
+    </div>
+  </div>
+
+  <form class="box has-background-dark" method="post">
+    <input type="hidden" name="action" value="add">
+    <div class="columns is-multiline">
+      <div class="column is-5">
+        <div class="field">
+          <label class="label has-text-grey-light">Role name</label>
+          <div class="control">
+            <input class="input" name="name" placeholder="Belle, Lumiere, Ensemble..." required>
+          </div>
+        </div>
+      </div>
+      <div class="column is-3">
+        <div class="field">
+          <label class="checkbox has-text-grey-light">
+            <input type="checkbox" name="is_group">
+            Group role (appears after principals)
+          </label>
+        </div>
+      </div>
+      <div class="column is-4 has-text-right">
+        <button class="button is-warning mt-4" type="submit">Add role</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="columns is-multiline">
+    {% for role in roles %}
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <form method="post">
+              <input type="hidden" name="action" value="update">
+              <input type="hidden" name="role_id" value="{{ role.id }}">
+              <div class="field is-grouped is-align-items-center">
+                <p class="control is-expanded">
+                  <input class="input is-medium" name="name" value="{{ role.name }}">
+                </p>
+                <p class="control">
+                  <label class="checkbox has-text-grey-light">
+                    <input type="checkbox" name="is_group" {% if role.is_group %}checked{% endif %}>
+                    Group
+                  </label>
+                </p>
+              </div>
+              <div class="field">
+                <label class="label has-text-grey-light">Assign students</label>
+                <div class="control">
+                  <div class="select is-multiple is-fullwidth">
+                    <select name="students" multiple size="6">
+                      {% for student in students %}
+                        <option value="{{ student.id }}" {% for c in role.cast_assignments %}{% if c.student_id == student.id %}selected{% endif %}{% endfor %}>
+                          {{ student.name }} ({{ student.year }})
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="buttons">
+                <button class="button is-warning" type="submit">Save role</button>
+                <button class="button is-danger is-light" name="action" value="delete" type="submit">Delete</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="column is-12 has-text-grey-light">No roles yet. Add a role to begin assigning students.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

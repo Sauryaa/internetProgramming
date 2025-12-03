@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Crew & tech{% endblock %}
+{% block content %}
+<div class="box card">
+  <div class="level">
+    <div class="level-left">
+      <div>
+        <p class="is-uppercase has-text-weight-semibold has-text-warning">Backstage</p>
+        <h1 class="title is-3 has-text-white">Crew responsibilities</h1>
+      </div>
+    </div>
+    <div class="level-right">
+      <a class="button is-light" href="{{ url_for('edit.dashboard') }}">Dashboard</a>
+    </div>
+  </div>
+
+  <form class="box has-background-dark" method="post">
+    <input type="hidden" name="action" value="add">
+    <div class="columns is-multiline">
+      <div class="column is-8">
+        <div class="field">
+          <label class="label has-text-grey-light">Responsibility</label>
+          <div class="control">
+            <input class="input" name="name" placeholder="Stage manager, Lighting board, Props..." required>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4 has-text-right">
+        <button class="button is-warning mt-4" type="submit">Add crew role</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="columns is-multiline">
+    {% for role in roles %}
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <form method="post">
+              <input type="hidden" name="action" value="update">
+              <input type="hidden" name="role_id" value="{{ role.id }}">
+              <div class="field">
+                <label class="label has-text-grey-light">Role name</label>
+                <div class="control">
+                  <input class="input is-medium" name="name" value="{{ role.name }}">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label has-text-grey-light">Assign students</label>
+                <div class="control">
+                  <div class="select is-multiple is-fullwidth">
+                    <select name="students" multiple size="6">
+                      {% for student in students %}
+                        <option value="{{ student.id }}" {% for c in role.assignments %}{% if c.student_id == student.id %}selected{% endif %}{% endfor %}>
+                          {{ student.name }} ({{ student.year }})
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="buttons">
+                <button class="button is-warning" type="submit">Save</button>
+                <button class="button is-danger is-light" name="action" value="delete" type="submit">Delete</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="column is-12 has-text-grey-light">No crew responsibilities yet.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
